@@ -27,17 +27,8 @@ def Batters(columns):
           temp_df.columns = columns
 
           final_df = pd.concat([final_df, temp_df], ignore_index=True)
+          del final_df[""]
   return final_df
-
-def IdRemover():
-  with open("output.csv", "r") as source:
-    reader = csv.reader(source)
-      
-    with open("mlb_batter_stats.csv", "w") as result:
-        writer = csv.writer(result)
-        for r in reader:
-            del r[0]
-            writer.writerow(r)
 
 if __name__ == "__main__":
   url = 'http://www.espn.com/mlb/history/leaders/_/breakdown/season/year/2018/start/1'
@@ -46,4 +37,3 @@ if __name__ == "__main__":
   column = Headers(soup)
   batting_Stats = Batters(column)
   batting_Stats.to_csv("output.csv", index=False, sep=',', encoding='utf-8')
-  IdRemover()
